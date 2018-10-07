@@ -1,0 +1,54 @@
+<h2 mat-dialog-title>{{ title }}</h2>
+
+<mat-dialog-content [formGroup]="form">
+    <mat-form-field fxFlex>
+        <textarea
+            matInput
+            required
+            formControlName="text"
+            [placeholder]="placeholder"
+        >
+        </textarea>
+
+        <mat-error *ngIf="form.controls.text.invalid && form.controls.text.errors.required">
+            {{ textErrorMessage }}
+        </mat-error>
+    </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button
+        *ngIf="!awaitingForRequest"
+        fxFlex
+        class="mat-raised-button"
+        (click)="close()"
+    >
+        Close
+    </button>
+
+    <button
+        *ngIf="!awaitingForRequest"
+        fxFlex
+        class="mat-raised-button mat-accent"
+        [disabled]="awaitingForRequest"
+        (click)="save()"
+    >
+        <ng-container
+            *ngIf="action === 'create'; then creating; else editing">
+        </ng-container>
+
+        <ng-template #creating>
+            Save
+        </ng-template>
+
+        <ng-template #editing>
+            Update
+        </ng-template>
+    </button>
+    
+    <mat-progress-bar
+        *ngIf="awaitingForRequest"
+        mode="indeterminate"
+    >
+    </mat-progress-bar>
+</mat-dialog-actions>

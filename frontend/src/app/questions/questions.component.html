@@ -1,0 +1,52 @@
+<h2>
+  Learn about: {{ whatDoWeLearn }}
+</h2>
+
+<button mat-raised-button
+        color="accent"
+        (click)="openCreateDialog()">New Question</button>
+
+<div
+  *ngFor="let question of availableQuestions; let last = last;"
+  class="list-item"
+>
+  <div
+    fxLayout="column"
+    class="inner"
+  >
+    <span class="text">{{ question.questionText }}</span>
+
+    <div
+      fxLayout="row"
+      class="actions"
+    >
+      <div class="action">
+        <button mat-icon-button (click)="rateQuestion(question, 'up')">
+          <mat-icon>thumb_up</mat-icon>
+        </button>
+
+        <span>{{ question.positiveRating ? question.positiveRating : 0 }}</span>
+      </div>
+  
+      <div class="action">
+        <button mat-icon-button (click)="rateQuestion(question, 'down')">
+          <mat-icon>thumb_down</mat-icon>
+        </button>
+  
+        <span>{{ question.negativeRating ? question.negativeRating : 0 }}</span>
+      </div>
+  
+      <div class="action">
+        <button mat-icon-button (click)="deleteQuestion(question)">
+          <mat-icon>delete_forever</mat-icon>
+        </button>
+      </div>
+  
+      <div class="action">
+        <a routerLink="/question/{{ question.objectId }}">Answers</a>
+      </div>
+    </div>
+  </div>
+
+  <mat-divider *ngIf="!last"></mat-divider>
+</div>

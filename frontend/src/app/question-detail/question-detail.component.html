@@ -1,0 +1,54 @@
+<h2>
+  {{ question ? question.questionText : 'Loading...' }}
+</h2>
+
+<button mat-raised-button
+        color="accent"
+        (click)="openCreateOrEditAnswerDialog('create')">New Answer</button>
+
+<div
+  *ngFor="let answer of availableAnswers; let last = last;"
+  class="list-item"
+>
+  <div
+    fxLayout="column"
+    class="inner"
+  >
+    <span class="text">{{ answer.answerText }}</span>
+
+    <div
+      fxLayout="row"
+      class="actions"
+    >
+      <div class="action">
+        <button mat-icon-button (click)="rateAnswer(answer, 'up')">
+          <mat-icon>thumb_up</mat-icon>
+        </button>
+
+        <span>{{ answer.positiveRating ? answer.positiveRating : 0 }}</span>
+      </div>
+  
+      <div class="action">
+        <button mat-icon-button (click)="rateAnswer(answer, 'down')">
+          <mat-icon>thumb_down</mat-icon>
+        </button>
+  
+        <span>{{ answer.negativeRating ? answer.negativeRating : 0 }}</span>
+      </div>
+  
+      <div class="action">
+        <button mat-icon-button (click)="deleteAnswer(answer)">
+          <mat-icon>delete_forever</mat-icon>
+        </button>
+      </div>
+  
+      <div class="action">
+        <button mat-icon-button (click)="openCreateOrEditAnswerDialog('edit', answer)">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <mat-divider *ngIf="!last"></mat-divider>
+</div>
