@@ -2,11 +2,9 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
-import { QuestionService } from '../services/question.service';
-import { AnswerService } from '../services/answer.service';
-import { Question } from '../models/question';
-import { Answer } from '../models/answer';
-import { IParseInsertableEntity } from '../services/parse/entity';
+import { QuestionService } from '../../services/question.service';
+import { AnswerService } from '../../services/answer.service';
+import { IParseInsertableEntity } from '../../services/parse/entity';
 
 @Component({
   selector: 'app-crud-dialog',

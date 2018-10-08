@@ -13,12 +13,12 @@ import {
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
-import { AppComponent } from './app.component';
-import { QuestionsComponent } from './questions/questions.component';
-import { CrudDialogComponent } from './crud-dialog/crud-dialog.component';
+import { AppComponent } from './components/app/app.component';
+import { QuestionsComponent } from './components/questions/questions.component';
+import { QuestionDetailComponent } from './components/question-detail/question-detail.component';
+import { CrudDialogComponent } from './components/crud-dialog/crud-dialog.component';
 
-import { AppRoutingModule } from './app-routing.module';
-import { QuestionDetailComponent } from './question-detail/question-detail.component';
+import { AppRoutingModule } from './routing/app-routing.module';
 
 @NgModule({
   declarations: [

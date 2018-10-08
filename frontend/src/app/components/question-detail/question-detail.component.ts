@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 
-import { Question } from '../models/question';
-import { Answer } from '../models/answer';
+import { Question } from '../../models/question';
+import { Answer } from '../../models/answer';
 
-import { QuestionService } from '../services/question.service';
-import { AnswerService } from '../services/answer.service';
+import { QuestionService } from '../../services/question.service';
+import { AnswerService } from '../../services/answer.service';
+
 import { CrudDialogComponent } from '../crud-dialog/crud-dialog.component';
 
 @Component({
@@ -75,6 +76,12 @@ export class QuestionDetailComponent implements OnInit {
   }
 
   async deleteAnswer({ objectId }: Answer) {
+    const confirmed = confirm('Do you really want to delete this answer?');
+
+    if (!confirmed) {
+      return false;
+    }
+
     await this.answerService.delete(objectId);
 
     await this.questionService
