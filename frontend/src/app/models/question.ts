@@ -1,7 +1,8 @@
 import {
   IParseInsertableEntity,
   IParseEntity,
-  IParseUpdatableEntity
+  IParseUpdatableEntity,
+  IParseRelationableEntity
 } from '../services/parse/entity';
 
 export class Question implements IParseEntity, IParseInsertableEntity, IParseUpdatableEntity {
@@ -11,4 +12,5 @@ export class Question implements IParseEntity, IParseInsertableEntity, IParseUpd
   questionText: string;
   positiveRating: number;
   negativeRating: number;
+  answers: IParseRelationableEntity[];
 }

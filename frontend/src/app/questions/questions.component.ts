@@ -3,7 +3,9 @@ import { MatDialog, MatDialogConfig } from '@angular/material';
 
 import { CrudDialogComponent } from '../crud-dialog/crud-dialog.component';
 import { Question } from '../models/question';
+
 import { QuestionService } from '../services/question.service';
+import { AnswerService } from '../services/answer.service';
 
 @Component({
   selector: 'app-questions',
@@ -18,6 +20,7 @@ export class QuestionsComponent implements OnInit {
 
   constructor(
     private questionService: QuestionService,
+    private answerService: AnswerService,
     public dialog: MatDialog
   ) { }
 
@@ -64,8 +67,12 @@ export class QuestionsComponent implements OnInit {
     await this.fetchAllQuestions();
   }
 
-  async deleteQuestion({ objectId }: Question) {
-    await this.questionService.delete(objectId);
+  async deleteQuestion(question: Question) {
+    await this.questionService.delete(question.objectId);
+
+    await this.answerService
+      .deleteQuestionAnswers(question);
+
     await this.fetchAllQuestions();
   }
 

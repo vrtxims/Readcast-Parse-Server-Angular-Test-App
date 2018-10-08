@@ -20,16 +20,24 @@ export class AnswerService extends ParseService<Answer> {
     );
   }
 
-  countQuestionAnswers({ objectId }: Question): Promise<Answer[]> {
-    return this.query(`
+  async countQuestionAnswers({ objectId }: Question): Promise<Answer[]> {
+    return await this.query(`
       count=1
       &limit=0
       &where={"question":{"__type":"Pointer","className":"Question","objectId":"${objectId}"}}
     `);
   }
 
-  fetchQuestionAnswers({ objectId }: Question): Promise<Answer[]> {
-    return this.query(`where={"question":{"__type":"Pointer","className":"Question","objectId":"${objectId}"}}`);
+  async fetchQuestionAnswers({ objectId }: Question): Promise<Answer[]> {
+    return await this.query(`where={"question":{"__type":"Pointer","className":"Question","objectId":"${objectId}"}}&order=-createdAt`);
+  }
+
+  async deleteQuestionAnswers(question: Question): Promise<void> {
+    const answers = await this.fetchQuestionAnswers(question);
+
+    answers.map(async answer => {
+      await this.delete(answer.objectId);
+    });
   }
 
 }

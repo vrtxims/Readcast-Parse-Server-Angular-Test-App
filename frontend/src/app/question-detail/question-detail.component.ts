@@ -43,6 +43,7 @@ export class QuestionDetailComponent implements OnInit {
       action: action,
       model: 'Answer',
       modelId: answer ? answer.objectId : null,
+      parentModelId: this.question ? this.question.objectId : null,
       textInputValue: answer ? answer.answerText : null
     };
 
@@ -75,6 +76,10 @@ export class QuestionDetailComponent implements OnInit {
 
   async deleteAnswer({ objectId }: Answer) {
     await this.answerService.delete(objectId);
+
+    await this.questionService
+      .removeAnswerRelation(this.question.objectId, objectId);
+
     await this.fetchQuestionAnswers();
   }
 

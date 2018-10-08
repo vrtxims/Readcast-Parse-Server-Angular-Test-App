@@ -1,10 +1,25 @@
-<h2>
-  {{ question ? question.questionText : 'Loading...' }}
-</h2>
-
-<button mat-raised-button
-        color="accent"
-        (click)="openCreateOrEditAnswerDialog('create')">New Answer</button>
+<div class="heading">
+  <h2>
+    {{ question ? question.questionText : 'Loading...' }}
+  </h2>
+  
+  <a
+    routerLink=""
+    mat-raised-button
+    color="warn"
+    style="margin-right: 8px;"
+  >
+    Back to questions
+  </a>
+  
+  <button 
+    mat-raised-button
+    color="accent"
+    (click)="openCreateOrEditAnswerDialog('create')"
+  >
+    New Answer
+  </button>
+</div>
 
 <div
   *ngFor="let answer of availableAnswers; let last = last;"

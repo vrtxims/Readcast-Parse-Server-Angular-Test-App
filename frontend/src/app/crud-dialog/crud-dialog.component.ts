@@ -6,6 +6,7 @@ import { QuestionService } from '../services/question.service';
 import { AnswerService } from '../services/answer.service';
 import { Question } from '../models/question';
 import { Answer } from '../models/answer';
+import { IParseInsertableEntity } from '../services/parse/entity';
 
 @Component({
   selector: 'app-crud-dialog',
@@ -19,6 +20,8 @@ export class CrudDialogComponent implements OnInit {
   model: string;
 
   modelId: null | string = null;
+
+  parentModelId: null | string = null;
 
   title: string;
 
@@ -51,6 +54,7 @@ export class CrudDialogComponent implements OnInit {
         break;
 
       case 'Answer':
+        this.parentModelId = dataPassedToDialog.parentModelId;
         this.model = 'Answer';
         this.title = 'New Answer';
         this.placeholder = 'Enter the text for your answer';
@@ -58,6 +62,7 @@ export class CrudDialogComponent implements OnInit {
 
         if (this.action === 'edit') {
           this.modelId = dataPassedToDialog.modelId;
+
           this.textInputValue = dataPassedToDialog.textInputValue;
 
           this.title = 'Edit Answer';
@@ -103,10 +108,17 @@ export class CrudDialogComponent implements OnInit {
         break;
 
       case 'Answer':
-        await this.answerService
+        const insertedAnswer: IParseInsertableEntity = await this.answerService
           .insert({
+            question: {
+              objectId: this.parentModelId,
+              relationClassName: 'Question'
+            },
             answerText: this.form.value.text
           });
+
+        this.questionService
+          .addAnswerRelation(this.parentModelId, insertedAnswer.objectId);
 
         break;
     }

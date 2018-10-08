@@ -105,7 +105,8 @@ export class ParseService<T> {
       const value = data[prop];
 
       if (this.isIRelationableEntity(value)) {
-        const relation = this.makeRelation(prop, value);
+        const relation = this.makeRelation(value);
+
         data[prop] = relation;
       }
     });
@@ -113,14 +114,12 @@ export class ParseService<T> {
     return data;
   }
 
-  private makeRelation(keyRelation: string, valueRelation: IParseRelationableEntity): Object {
+  private makeRelation(valueRelation: IParseRelationableEntity): Object {
     const relation = `{
-                       "${keyRelation}": {
-                           "__type": "Pointer",
-                           "className": "${valueRelation.relationClassName}",
-                           "objectId": "${valueRelation.objectId}"
-                       }
-                     }`;
+      "__type": "Pointer",
+      "className": "${valueRelation.relationClassName}",
+      "objectId": "${valueRelation.objectId}"
+    }`;
 
     return JSON.parse(relation);
   }

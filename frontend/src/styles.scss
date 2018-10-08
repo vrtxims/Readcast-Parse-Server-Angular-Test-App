@@ -1,10 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
+router-outlet ~ * {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
 body {
+    margin: 0;
+
     .container {
-        max-width: 600px;
-        margin: auto;
+        .heading {
+            padding: 18px;
+        }
 
         .list-item {
             &:first-of-type {
@@ -12,7 +21,7 @@ body {
             }
 
             .inner {
-                padding: 15px 18px;
+                padding: 15px 28px;
 
                 .text {
                     font-weight: bold;
@@ -21,6 +30,13 @@ body {
 
                 .actions {
                     margin-left: -8px;
+
+                    a {
+                        color: #333;
+                        text-decoration: none;
+                        font-weight: bold;
+                        font-size: 16px;
+                    }
                 }
             }
         }
